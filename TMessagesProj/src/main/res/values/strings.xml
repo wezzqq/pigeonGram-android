@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">Telegram</string>
-    <string name="AppNameBeta">Telegram Beta</string>
+    <string name="AppName">pigeonGram</string>
+    <string name="AppNameBeta">pigeonGram Beta</string>
     <string name="LanguageName">English</string>
     <string name="English">English</string>
     <string name="LanguageNameInEnglish">English</string>
@@ -171,7 +171,7 @@
     <string name="NoResultFoundFor">No results found for \"%s\".</string>
     <string name="NoResultFoundForTag">No results found for %s</string>
     <string name="NoResultFoundFor2">There were no results for \"%s\".\nTry a new search.</string>
-    <string name="NoChats">Welcome to Telegram</string>
+    <string name="NoChats">Welcome to pigeonGram</string>
     <string name="RecentlyViewed">Recently viewed</string>
     <string name="RecentlyViewedHide">HIDE</string>
     <string name="NoChatsHelp">Start messaging by tapping the pencil button in the bottom right corner.</string>
@@ -327,17 +327,17 @@
     <string name="Underline">Underline</string>
     <string name="Regular">Regular</string>
     <string name="FormattedDate">Date</string>
-    <string name="ContactsPermissionAlert">**Telegram** needs access to your contacts so that you can connect with your friends across all your devices. Your contacts will be continuously synced with Telegram\'s heavily encrypted cloud servers.</string>
+    <string name="ContactsPermissionAlert">**pigeonGram** needs access to your contacts so that you can connect with your friends across all your devices. Your contacts will be continuously synced with Telegram\'s heavily encrypted cloud servers.</string>
     <string name="ContactsPermissionAlertNotNow">Not now</string>
     <string name="ContactsPermissionAlertContinue">Continue</string>
     <string name="NotificationsPermissionAlertTitle">Turn on notifications</string>
-    <string name="NotificationsPermissionAlertSubtitle">Please allow Telegram to send you notifications to stay in touch with your friends and family.</string>
+    <string name="NotificationsPermissionAlertSubtitle">Please allow pigeonGram to send you notifications to stay in touch with your friends and family.</string>
     <string name="NotificationsPermissionAlert1">Get notified about new messages</string>
     <string name="NotificationsPermissionAlert2">Learn when you are mentioned in groups</string>
     <string name="NotificationsPermissionAlert3">Mute specific chats and types of chats</string>
     <string name="NotificationsPermissionContinue">Continue</string>
     <string name="NotificationsPermissionSettings">Open Settings</string>
-    <string name="YourContacts">Your contacts on Telegram</string>
+    <string name="YourContacts">Your contacts on pigeonGram</string>
     <string name="ConnectingYourContacts">Connecting your contacts...</string>
     <string name="ArchiveHintHeader1">This is your Archive</string>
     <string name="ArchiveHintText1">Chats with enabled notifications get unarchived when new messages arrive.</string>
@@ -412,11 +412,11 @@
     <string name="ImportedInfo">This message was imported from another app. We can\'t guarantee it\'s real.</string>
     <string name="ImportUploading">Importing messages and media... **%d%%**</string>
     <string name="ImportImportingTitle">Importing chat</string>
-    <string name="ImportImportingInfo">Please keep Telegram open\nuntil the import is completed.</string>
+    <string name="ImportImportingInfo">Please keep pigeonGram open\nuntil the import is completed.</string>
     <string name="ImportCount">%1$s of %2$s</string>
     <string name="ImportDone">Done</string>
     <string name="ImportDoneTitle">Chat imported successfully!</string>
-    <string name="ImportDoneInfo">Save space on your device by importing more chats to Telegram.</string>
+    <string name="ImportDoneInfo">Save space on your device by importing more chats to pigeonGram.</string>
     <string name="ImporImportingService">Importing messages and media...</string>
     <string name="ImporImportingStickersService">Importing stickers...</string>
     <string name="ImportHeader">Import messages and media to...</string>
