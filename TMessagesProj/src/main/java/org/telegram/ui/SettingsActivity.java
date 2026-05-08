@@ -143,6 +143,8 @@ import java.util.Set;
 import me.vkryl.android.animator.BoolAnimator;
 import me.vkryl.android.animator.FactorAnimator;
 
+import org.telegram.ui.PigeonSettingsActivity;
+
 public class SettingsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, ImageUpdater.ImageUpdaterDelegate, MainTabsActivity.TabFragmentDelegate, FactorAnimator.Target {
 
     private static final int ANIMATOR_ID_SEARCH_PAGE_VISIBLE = 0;
@@ -691,6 +693,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
 
         items.add(UItem.asShadow(null));
 
+        
+        items.add(SettingCell.Factory.of(6969, 0xFFB9F2C9, 0xFF7ED6A5, R.drawable.filled_settings, "PigeonGram Settings"));
         if (!getMessagesController().premiumFeaturesBlocked()) {
             items.add(SettingCell.Factory.of(11, 0xFFB659FF, 0xFF617CFF, R.drawable.settings_premium, getString(R.string.TelegramPremium)));
         }
@@ -811,6 +815,10 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                 break;
             case 10:
                 presentFragment(new LanguageSelectActivity());
+                break;
+
+            case 6969:
+                presentFragment(new PigeonSettingsActivity());
                 break;
 
             case 11:
