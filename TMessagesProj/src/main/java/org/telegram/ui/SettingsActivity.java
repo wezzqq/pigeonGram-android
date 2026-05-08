@@ -694,7 +694,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         items.add(UItem.asShadow(null));
 
         
-        items.add(SettingCell.Factory.of(6969, 0xFFB9F2C9, 0xFF7ED6A5, R.drawable.filled_settings, "PigeonGram Settings"));
+        items.add(SettingCell.Factory.of(6969, 0xFFB9F2C9, 0xFF7ED6A5, R.drawable.filled_profile_settings, "PigeonGram Settings"));
         if (!getMessagesController().premiumFeaturesBlocked()) {
             items.add(SettingCell.Factory.of(11, 0xFFB659FF, 0xFF617CFF, R.drawable.settings_premium, getString(R.string.TelegramPremium)));
         }
