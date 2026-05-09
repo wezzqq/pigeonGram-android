@@ -267,6 +267,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import me.vkryl.android.animator.BoolAnimator;
 import me.vkryl.android.animator.FactorAnimator;
 
+import labs.nexa.pigeongram.config.PigeonConfig;
+
 public class DialogsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, FloatingDebugProvider, FactorAnimator.Target, MainTabsActivity.TabFragmentDelegate {
     private final int ADDITIONAL_LIST_HEIGHT_DP = Build.VERSION.SDK_INT >= 31 ? 48 : 0;
 
@@ -5249,13 +5251,18 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
                 return !actionBar.isActionModeShowed() && super.dispatchTouchEvent(ev);
             }
         };
+
+        if (PigeonConfig.hideStories()) {
+        hasStories = false;
+        }
+        
         dialogStoriesCell.setActionBar(actionBar);
         dialogStoriesCell.setMenuItemsOffset(isArchive() ? dp(68) : dpf2(16.66f));
         dialogStoriesCell.allowGlobalUpdates = false;
         dialogStoriesCell.setVisibility(View.GONE);
         animateToHasStories = false;
         hasOnlySlefStories = false;
-        hasStories = false;
+        hasStories = !PigeonConfig.hideStories();
 
         if (onlySelect && initialDialogsType == DIALOGS_TYPE_FORWARD) {
             MessagesController.getInstance(currentAccount).getSavedReactionTags(0);
@@ -5523,7 +5530,15 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         };
         updateFilterTabs(true, false);
         rightSlidingDialogContainer.setOpenProgress(0f);
-        contentView.addView(dialogStoriesCell, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, DialogStoriesCell.HEIGHT_IN_DP));
+        if (!PigeonConfig.hideStories()) {
+            contentView.addView(
+                dialogStoriesCell,
+                LayoutHelper.createFrame(
+                    LayoutHelper.MATCH_PARENT,
+                    DialogStoriesCell.HEIGHT_IN_DP
+            )
+    );
+}
         contentView.addView(rightSlidingDialogContainer, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
 
         dialogsActivityStatusLayout = new DialogsActivityStatusLayout(context);
