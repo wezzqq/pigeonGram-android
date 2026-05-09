@@ -2,22 +2,22 @@ package labs.nexa.pigeongram.settings;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.FrameLayout;
 
-import org.telegram.messenger.LocaleController;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.BaseFragment;
-import org.telegram.ui.Components.UItem;
-import org.telegram.ui.Components.UniversalAdapter;
-
-import java.util.ArrayList;
+import org.telegram.ui.Cells.TextCheckCell;
+import org.telegram.ui.Components.LayoutHelper;
+import org.telegram.ui.Components.RecyclerListView;
 
 import labs.nexa.pigeongram.config.PigeonConfig;
 
 public class PigeonSettingsActivity extends BaseFragment {
 
-    private UniversalAdapter adapter;
-
-    private final int hideStoriesRow = 1;
+    private RecyclerListView listView;
 
     @Override
     public View createView(Context context) {
@@ -25,47 +25,69 @@ public class PigeonSettingsActivity extends BaseFragment {
         actionBar.setBackButtonImage(R.drawable.ic_ab_back);
         actionBar.setTitle("PigeonGram Settings");
 
-        adapter = new UniversalAdapter(
-                null,
-                this::fillItems,
-                this::onItemClick,
-                null
+        FrameLayout frameLayout = new FrameLayout(context);
+
+        listView = new RecyclerListView(context);
+
+        listView.setLayoutManager(
+                new LinearLayoutManager(context)
         );
 
-        fragmentView = adapter.createView(context);
+        listView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        return fragmentView;
-    }
+            @Override
+            public int getItemCount() {
+                return 1;
+            }
 
-    private void fillItems(ArrayList<UItem> items,
-                           UniversalAdapter adapter) {
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(
+                    android.view.ViewGroup parent,
+                    int viewType
+            ) {
 
-        items.add(UItem.asHeader("Interface"));
+                TextCheckCell cell = new TextCheckCell(context);
 
-        items.add(
-                UItem.asCheck(
-                        hideStoriesRow,
+                return new RecyclerListView.Holder(cell);
+            }
+
+            @Override
+            public void onBindViewHolder(
+                    RecyclerView.ViewHolder holder,
+                    int position
+            ) {
+
+                TextCheckCell cell =
+                        (TextCheckCell) holder.itemView;
+
+                cell.setTextAndCheck(
                         "Hide Stories",
-                        PigeonConfig.hideStories()
+                        PigeonConfig.hideStories(),
+                        false
+                );
+
+                cell.setOnClickListener(v -> {
+
+                    boolean value =
+                            !PigeonConfig.hideStories();
+
+                    PigeonConfig.setHideStories(value);
+
+                    cell.setChecked(value);
+                });
+            }
+        });
+
+        frameLayout.addView(
+                listView,
+                LayoutHelper.createFrame(
+                        LayoutHelper.MATCH_PARENT,
+                        LayoutHelper.MATCH_PARENT
                 )
         );
 
-        items.add(UItem.asShadow(null));
-    }
+        fragmentView = frameLayout;
 
-    private void onItemClick(UItem item,
-                             View view,
-                             int position,
-                             float x,
-                             float y) {
-
-        if (item.id == hideStoriesRow) {
-
-            boolean newValue = !PigeonConfig.hideStories();
-
-            PigeonConfig.setHideStories(newValue);
-
-            adapter.update(true);
-        }
+        return fragmentView;
     }
 }
