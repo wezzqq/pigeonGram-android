@@ -33,50 +33,40 @@ public class PigeonSettingsActivity extends BaseFragment {
                 new LinearLayoutManager(context)
         );
 
-        listView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-            @Override
-            public int getItemCount() {
-                return 1;
-            }
-
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(
-                    android.view.ViewGroup parent,
-                    int viewType
-            ) {
-
-                TextCheckCell cell = new TextCheckCell(context);
-
-                return new RecyclerListView.Holder(cell);
-            }
-
-            @Override
-            public void onBindViewHolder(
-                    RecyclerView.ViewHolder holder,
-                    int position
-            ) {
-
-                TextCheckCell cell =
-                        (TextCheckCell) holder.itemView;
-
-                cell.setTextAndCheck(
-                        "Hide Stories",
-                        PigeonConfig.hideStories(),
-                        false
-                );
-
-                cell.setOnClickListener(v -> {
-
-                    boolean value =
-                            !PigeonConfig.hideStories();
-
-                    PigeonConfig.setHideStories(value);
-
-                    cell.setChecked(value);
-                });
-            }
-        });
+    listView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    
+        @Override
+        public int getItemCount() {
+            return 1;
+        }
+    
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(
+                android.view.ViewGroup parent,
+                int viewType
+        ) {
+    
+            TextCheckCell cell = new TextCheckCell(context);
+    
+            return new RecyclerListView.Holder(cell);
+        }
+    
+        @Override
+        public void onBindViewHolder(
+                RecyclerView.ViewHolder holder,
+                int position
+        ) {
+    
+            TextCheckCell cell =
+                    (TextCheckCell) holder.itemView;
+    
+            cell.setTextAndCheck(
+                    "Hide Stories",
+                    PigeonConfig.hideStories(),
+                    false
+            );
+        }
+    });
 
         frameLayout.addView(
                 listView,
