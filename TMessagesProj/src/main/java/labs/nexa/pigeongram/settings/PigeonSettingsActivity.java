@@ -68,6 +68,17 @@ public class PigeonSettingsActivity extends BaseFragment {
         }
     });
 
+        listView.setOnItemClickListener((view, position) -> {
+
+        boolean value = !PigeonConfig.hideStories();
+    
+        PigeonConfig.setHideStories(value);
+    
+        TextCheckCell cell = (TextCheckCell) view;
+    
+        cell.setChecked(value);
+    });
+
         frameLayout.addView(
                 listView,
                 LayoutHelper.createFrame(
