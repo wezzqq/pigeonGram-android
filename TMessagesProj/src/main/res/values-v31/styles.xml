@@ -86,10 +86,16 @@
         <item name="android:forceDarkAllowed">false</item>
     </style>
 
-  <style name="LaunchTheme" parent="Theme.SplashScreen">
-    <item name="windowSplashScreenBackground">#0B0B0B</item>
-    <item name="windowSplashScreenAnimatedIcon">@drawable/pigeon_logo</item>
-    <item name="postSplashScreenTheme">@style/AppTheme</item>
+<style name="LaunchTheme" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">#101418</item>
+
+    <item name="windowSplashScreenAnimatedIcon">
+        @drawable/ic_pigeon_splash
+    </item>
+
+    <item name="postSplashScreenTheme">
+        @style/Theme.TMessages
+    </item>
 </style>
 
     <!-- APP WIDGET -->
