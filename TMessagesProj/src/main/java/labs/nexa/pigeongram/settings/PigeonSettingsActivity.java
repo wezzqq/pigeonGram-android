@@ -1,169 +1,136 @@
 package labs.nexa.pigeongram.settings;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import org.telegram.messenger.AndroidUtilities;
+import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.BaseFragment;
-import org.telegram.ui.Cells.HeaderCell;
-import org.telegram.ui.Cells.ShadowSectionCell;
-import org.telegram.ui.Cells.TextCheckCell;
-import org.telegram.ui.Components.BulletinFactory;
+import org.telegram.ui.Cells.TextSettingsCell;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RecyclerListView;
 
-import labs.nexa.pigeongram.config.PigeonConfig;
-
 public class PigeonSettingsActivity extends BaseFragment {
-
-    private RecyclerListView listView;
-
-    private static final int VIEW_TYPE_HEADER = 0;
-    private static final int VIEW_TYPE_CHECK = 1;
-    private static final int VIEW_TYPE_SHADOW = 2;
 
     @Override
     public View createView(Context context) {
 
         actionBar.setBackButtonImage(R.drawable.ic_ab_back);
-        actionBar.setTitle("PigeonGram Settings");
+        actionBar.setTitle("");
 
         FrameLayout frameLayout = new FrameLayout(context);
 
-        listView = new RecyclerListView(context);
+        RecyclerListView listView = new RecyclerListView(context);
 
-        listView.setLayoutManager(
-                new LinearLayoutManager(context)
+        LinearLayout content = new LinearLayout(context);
+        content.setOrientation(LinearLayout.VERTICAL);
+
+        // LOGO
+
+        TextView logo = new TextView(context);
+        logo.setText("\uD83D\uDD4A");
+        logo.setTextSize(48);
+        logo.setGravity(Gravity.CENTER);
+
+        // TITLE
+
+        TextView title = new TextView(context);
+        title.setText("PigeonGram");
+        title.setTextSize(28);
+        title.setTypeface(Typeface.DEFAULT_BOLD);
+        title.setGravity(Gravity.CENTER);
+
+        // VERSION
+
+        TextView version = new TextView(context);
+        version.setText(BuildVars.BUILD_VERSION_STRING);
+        version.setTextSize(14);
+        version.setAlpha(0.7f);
+        version.setGravity(Gravity.CENTER);
+
+        content.addView(
+                logo,
+                LayoutHelper.createLinear(
+                        LayoutHelper.MATCH_PARENT,
+                        LayoutHelper.WRAP_CONTENT,
+                        0,
+                        32,
+                        0,
+                        0
+                )
         );
 
-        listView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        content.addView(
+                title,
+                LayoutHelper.createLinear(
+                        LayoutHelper.MATCH_PARENT,
+                        LayoutHelper.WRAP_CONTENT
+                )
+        );
 
-            @Override
-            public int getItemCount() {
-                return 5;
-            }
+        content.addView(
+                version,
+                LayoutHelper.createLinear(
+                        LayoutHelper.MATCH_PARENT,
+                        LayoutHelper.WRAP_CONTENT,
+                        0,
+                        4,
+                        0,
+                        24
+                )
+        );
 
-            @Override
-            public int getItemViewType(int position) {
+        // INTERFACE
 
-                switch (position) {
-                    case 0:
-                    case 3:
-                        return VIEW_TYPE_HEADER;
+        TextSettingsCell interfaceCell =
+                new TextSettingsCell(context);
 
-                    case 2:
-                        return VIEW_TYPE_SHADOW;
+        interfaceCell.setText("Interface", true);
 
-                    default:
-                        return VIEW_TYPE_CHECK;
-                }
-            }
+        interfaceCell.setOnClickListener(v ->
+                presentFragment(new InterfaceSettingsActivity())
+        );
 
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(
-                    ViewGroup parent,
-                    int viewType
-            ) {
+        // CHATS
 
-                View view;
+        TextSettingsCell chatsCell =
+                new TextSettingsCell(context);
 
-                if (viewType == VIEW_TYPE_HEADER) {
+        chatsCell.setText("Chats", true);
 
-                    view = new HeaderCell(context);
+        chatsCell.setOnClickListener(v ->
+                presentFragment(new ChatsSettingsActivity())
+        );
 
-                } else if (viewType == VIEW_TYPE_SHADOW) {
+        // DEVELOPER
 
-                    view = new ShadowSectionCell(context);
+        TextSettingsCell developerCell =
+                new TextSettingsCell(context);
 
-                } else {
+        developerCell.setText("Developer", false);
 
-                    view = new TextCheckCell(context);
-                }
+        developerCell.setOnClickListener(v ->
+                presentFragment(new DeveloperSettingsActivity())
+        );
 
-                return new RecyclerListView.Holder(view);
-            }
+        content.addView(interfaceCell);
 
-            @Override
-            public void onBindViewHolder(
-                    RecyclerView.ViewHolder holder,
-                    int position
-            ) {
+        content.addView(chatsCell);
 
-                switch (getItemViewType(position)) {
-
-                    case VIEW_TYPE_HEADER: {
-
-                        HeaderCell cell =
-                                (HeaderCell) holder.itemView;
-
-                        if (position == 0) {
-                            cell.setText("Interface");
-                        } else {
-                            cell.setText("Developer");
-                        }
-
-                        break;
-                    }
-
-                    case VIEW_TYPE_CHECK: {
-
-                        TextCheckCell cell =
-                                (TextCheckCell) holder.itemView;
-
-                        if (position == 1) {
-
-                            cell.setTextAndCheck(
-                                    "Hide Stories",
-                                    PigeonConfig.hideStories(),
-                                    true
-                            );
-
-                        } else if (position == 4) {
-
-                            cell.setTextAndCheck(
-                                    "Developer Mode",
-                                    false,
-                                    false
-                            );
-                        }
-
-                        break;
-                    }
-                }
-            }
-        });
-
-        listView.setOnItemClickListener((view, position) -> {
-
-            if (position == 1) {
-
-                boolean value = !PigeonConfig.hideStories();
-
-                PigeonConfig.setHideStories(value);
-
-                TextCheckCell cell = (TextCheckCell) view;
-
-                cell.setChecked(value);
-
-                BulletinFactory.of(this)
-                        .createSimpleBulletin(
-                                R.raw.info,
-                                "Restart PigeonGram to apply changes"
-                        )
-                        .show();
-            }
-        });
+        content.addView(developerCell);
 
         frameLayout.addView(
-                listView,
+                content,
                 LayoutHelper.createFrame(
                         LayoutHelper.MATCH_PARENT,
-                        LayoutHelper.MATCH_PARENT
+                        LayoutHelper.WRAP_CONTENT,
+                        Gravity.TOP
                 )
         );
 
